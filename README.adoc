@@ -1,0 +1,26 @@
+# Install drupal with simpleSAMLphp module
+
+## fire up mariadb
+
+    git clone git@github.com:rhoerbe/docker-mariadb.git
+    cd docker-mariadb
+    git submodule update --init
+    cd dscripts && git checkout master && cd ..
+    dscripts/run.sh
+
+## build drupal8 image
+
+    git clone git@github.com:rhoerbe/docker-drupal.git
+    cd docker-drupal
+    git submodule update --init
+    cd dscripts && git checkout master && cd ..
+    dscripts/build.sh
+    dscripts/run.sh
+
+The initial settings.php is owned by root
+
+    chown 33 $DOCKERVOL_ROOT/$CONTAINERNAME/drupal/settings.php
+
+The connect string to the database is:
+
+    mysql -u drupal8 -pdrupal8 -h mariadb drupal8
